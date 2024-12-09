@@ -18,4 +18,9 @@ let product = {
     name: "tablet"
 }
 
-const numbers = [10 , 20, 30]
+const numbers = [10 , 20, 30, 40 , 50]
+
+type name = {
+    num: number,
+    
+}
