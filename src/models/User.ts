@@ -8,18 +8,18 @@ export interface IUser  {
 
 const userSchema = new Schema({
     name: {
-        type: string,
+        type: String,
         required: true,
         trim: true
     },
     email: {
-        type: string,
+        type: String,
         required: true,
         trim: true,
         unique: true
     },
     password: {
-        type: string,
+        type: String,
         required: true,
         trim: true
     },
@@ -27,5 +27,5 @@ const userSchema = new Schema({
 
 const User = mongoose.model<IUser>("User", userSchema)
 export default User
-
+ 
 
