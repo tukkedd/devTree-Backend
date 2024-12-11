@@ -15,10 +15,9 @@ export const createAccount = async (req: Request, res: Response) => {
     } 
 
     const user = new User(req.body)
-    hashPassword(password)
+    user.password = await hashPassword(password)
     
     await user.save()
-    
     res.status(201).send('Registrado correctamente')
     
 }
