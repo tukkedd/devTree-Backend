@@ -8,16 +8,16 @@ const router = Router()
 router.post('/auth/register', 
     body('handle')
         .notEmpty()
-        .withMessage('el handle no puede ir vacio'),
+        .withMessage('El handle no puede ir vacio'),
     body('name')
         .notEmpty()
-        .withMessage('el "nombre" no puede ir vacio'),
+        .withMessage('El "nombre" no puede ir vacio'),
     body('email')
         .isEmail()
-        .withMessage('email no valido'),
+        .withMessage('Email no Valido'),
     body('password')
         .isLength({min: 8})
-        .withMessage('el password es muy corto minimo 8 caracteres'),
+        .withMessage('El "Password" es muy corto minimo 8 caracteres'),
 
         
     createAccount )
