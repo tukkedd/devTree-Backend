@@ -4,6 +4,7 @@ import slug from "slug"
 import User from "../models/User"
 import { checkPassword, hashPassword } from "../utils/auth"
 import { generateJWT } from "../utils/jwt"
+import jwt from "jsonwebtoken"
 
 export const createAccount = async (req: Request, res: Response) => {
 
@@ -41,7 +42,7 @@ export const createAccount = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
     
-    const { email, password} = req.body
+    const { email, password } = req.body
 
     const user = await User.findOne({email})
     if(!user) {
@@ -59,8 +60,35 @@ export const login = async (req: Request, res: Response) => {
         return
     }
 
-    generateJWT(user)
+    const token = generateJWT({id: user._id})
 
-    res.send('Autenticado ')
+    res.send(token)
     
+}
+
+export const getUser = async(req: Request, res: Response) => {
+    const bearer = req.headers.authorization
+
+    if(!bearer) {
+        const error = new Error('No Autorizado')
+        res.status(401).json({error: error.message})
+        return
+    }
+
+    const [, token] = bearer.split(' ')
+    
+    if(!token) {
+        const error = new Error('No Autorizado')
+        res.status(401).json({error: error.message})
+        return
+    }
+
+    try {
+        const result = jwt.verify(token, process.env.JWT_SECRET)
+        console.log(result);
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
 }
